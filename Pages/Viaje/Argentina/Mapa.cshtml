@@ -1,0 +1,99 @@
+﻿@page
+@model WebAplicacion.Pages.Viaje.Argentina.MapaModel
+@{
+    ViewData["Title"] = "Mapa de Argentina";
+}
+
+@section Styles {
+    <link href="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css" rel="stylesheet" />
+    <style>
+        #map {
+            height: 80vh;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .mapboxgl-popup-content {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+            .mapboxgl-popup-content h3 {
+                margin: 0;
+                font-size: 16px;
+                color: #2c3e50;
+            }
+
+            .mapboxgl-popup-content p {
+                margin: 5px 0 0;
+                font-size: 14px;
+            }
+
+        /* Estilo para la estrella amarilla */
+        .marker-star {
+            width: 32px;
+            height: 32px;
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ieWVsbG93IiBzdHJva2U9Im9yYW5nZSIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyIDJsMy4wOSA2LjI2TDIyIDkuMjdMMTcgMTMuNTRMMTguMTggMjIgMTIgMTguNTYgNS44MiAyMiA3IDE0LjE0IDIgOS4yNyA4LjkxIDguMjYgMTIgMnoiLz48L3N2Zz4=");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            cursor: pointer;
+        }
+
+        
+    </style>
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div id="map"></div>
+
+@section Scripts {
+    <script src="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js"></script>
+    <script>
+        const map = new maplibregl.Map({
+            container: 'map',
+            style: 'https://tiles.stadiamaps.com/styles/alidade_smooth.json',
+            center: [-64.5, -31.4],
+            zoom: 4
+        });
+
+        const lugares = [
+            { coords: [-64.1888, -31.4201], nombre: 'Córdoba', link: '/Viaje/Argentina/Index' },
+            { coords: [-65.0489, -31.7315], nombre: 'El Nono', link: '/Viaje/Argentina/Index' },
+            { coords: [-64.3493, -33.1232], nombre: 'Río Cuarto', link: '/Viaje/Argentina/Index' },
+            { coords: [-71.6463, -40.7629], nombre: 'Villa La Angostura', link: '/Viaje/Argentina/Index' },
+            { coords: [-60.6393, -32.9468], nombre: 'Rosario', link: '/Viaje/Argentina/Index' },
+            { coords: [-65.4969, -23.745], nombre: 'Purmamarca', link: '/Viaje/Argentina/Index' },
+            { coords: [-65.2096, -26.8241], nombre: 'San Miguel de Tucumán', link: '/Viaje/Argentina/Index' },
+            { coords: [-65.3505, -23.578], nombre: 'Tilcara', link: '/Viaje/Argentina/Index' },
+            { coords: [-61.4293, -31.2601], nombre: 'Rafaela', link: '/Viaje/Argentina/Index', especial: true }
+        ];
+
+        lugares.forEach(lugar => {
+            let marker;
+            if (lugar.especial) {
+                // Marcador estrella amarilla para Rafaela
+                const el = document.createElement('div');
+                el.className = 'marker-star';
+                marker = new maplibregl.Marker(el);
+            } else {
+                // Marcador normal
+                marker = new maplibregl.Marker();
+            }
+            marker
+                .setLngLat(lugar.coords)
+                .setPopup(new maplibregl.Popup().setHTML(`
+                    <h3>${lugar.nombre}</h3>
+                    <p><a href="${lugar.link}">Ver historia</a></p>
+                `))
+                .addTo(map);
+        });
+
+        map.on('load', () => {
+            map.flyTo({ center: [-64.5, -31.4], zoom: 4, speed: 0.5 });
+        });
+    </script>
+}

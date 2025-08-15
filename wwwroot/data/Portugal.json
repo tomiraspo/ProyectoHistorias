@@ -1,0 +1,17 @@
+[
+  {
+    "nombre": "Lisboa",
+    "descripcion": "Capital de Portugal, famosa por su tranvía 28 y los miradores.",
+    "foto": "/images/Portugal/lisboa.jpg"
+  },
+  {
+    "nombre": "Porto",
+    "descripcion": "Ciudad del vino oporto y de los puentes sobre el Duero.",
+    "foto": "/images/Portugal/porto.jpg"
+  },
+  {
+    "nombre": "Portalegre",
+    "descripcion": "Lugar mágico con palacios y bosques, muy cerca de Lisboa.",
+    "foto": "/images/Portugal/portalegre.jpg"
+  }
+]

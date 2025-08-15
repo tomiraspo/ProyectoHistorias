@@ -1,0 +1,66 @@
+﻿@page
+@model WebAplicacion.Pages.Viaje.Espana.MapaModel
+@{
+    ViewData["Title"] = "Mapa de España";
+}
+
+@section Styles {
+    <style>
+        #map {
+            height: 80vh;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .mapboxgl-popup-content {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+            .mapboxgl-popup-content h3 {
+                margin: 0;
+                font-size: 16px;
+                color: #2c3e50;
+            }
+
+            .mapboxgl-popup-content p {
+                margin: 5px 0 0;
+                font-size: 14px;
+            }
+    </style>
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div id="map"></div>
+
+@section Scripts {
+    <script>
+        const map = new maplibregl.Map({
+            container: 'map',
+            style: 'https://tiles.stadiamaps.com/styles/alidade_smooth.json',
+            center: [-0.3763, 39.4699], // Valencia
+            zoom: 6
+        });
+
+        const lugares = [
+            { coords: [-0.3763, 39.4699], nombre: 'Valencia', link: '/Viaje/Espana/Index' }
+        ];
+
+        lugares.forEach(lugar => {
+            new maplibregl.Marker()
+                .setLngLat(lugar.coords)
+                .setPopup(new maplibregl.Popup().setHTML(`
+                    <h3>${lugar.nombre}</h3>
+                    <p><a href="${lugar.link}">Ver historia</a></p>
+                `))
+                .addTo(map);
+        });
+
+        map.on('load', () => {
+            map.flyTo({ center: [-0.3763, 39.4699], zoom: 6, speed: 0.5 });
+        });
+    </script>
+}

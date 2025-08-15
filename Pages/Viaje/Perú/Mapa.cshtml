@@ -1,0 +1,92 @@
+﻿@page
+@model WebAplicacion.Pages.Viaje.Peru.MapaModel
+@{
+    ViewData["Title"] = "Mapa de Perú";
+}
+
+@section Styles {
+    <link href="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css" rel="stylesheet" />
+    <style>
+        #map {
+            height: 80vh;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .mapboxgl-popup-content {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+            .mapboxgl-popup-content h3 {
+                margin: 0;
+                font-size: 16px;
+                color: #2c3e50;
+            }
+
+            .mapboxgl-popup-content p {
+                margin: 5px 0 0;
+                font-size: 14px;
+            }
+
+        /* Estilo para la estrella amarilla */
+        .marker-star {
+            width: 32px;
+            height: 32px;
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ieWVsbG93IiBzdHJva2U9Im9yYW5nZSIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lam9uPSJyb3VuZCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTIgMmwzLjA5IDYuMjZMMjIgOS4yN0wxNyAxMy41NEwxOC4xOCAyMiAxMiAxOC41NiA1LjgyIDIyIDcgMTQuMTQgMiA5LjI3IDguOTEgOC4yNiAxMiAyezoiLz48L3N2Zz4=");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            cursor: pointer;
+        }
+    </style>
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div id="map"></div>
+
+@section Scripts {
+    <script src="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js"></script>
+    <script>
+        const map = new maplibregl.Map({
+            container: 'map',
+            style: 'https://tiles.stadiamaps.com/styles/alidade_smooth.json',
+            center: [-75.0152, -13.53195], // Centro aproximado Perú
+            zoom: 6
+        });
+
+        const lugares = [
+            { coords: [-76.2572, -13.8500], nombre: 'Paracas', link: '/Viaje/Peru/Index' },
+            { coords: [-75.7290, -14.0678], nombre: 'Ica', link: '/Viaje/Peru/Index' },
+            { coords: [-77.0428, -12.0464], nombre: 'Lima', link: '/Viaje/Peru/Index' },
+            { coords: [-71.9675, -13.5319], nombre: 'Cusco', link: '/Viaje/Peru/Index' },
+            { coords: [-72.544963, -13.163141], nombre: 'Machu Picchu', link: '/Viaje/Peru/Index' },
+            { coords: [-69.1276, -16.1729], nombre: 'Copacabana (Lago Titicaca)', link: '/Viaje/Peru/Index' }
+        ];
+
+        lugares.forEach(lugar => {
+            let marker;
+            if (lugar.especial) {
+                const el = document.createElement('div');
+                el.className = 'marker-star';
+                marker = new maplibregl.Marker(el);
+            } else {
+                marker = new maplibregl.Marker();
+            }
+            marker
+                .setLngLat(lugar.coords)
+                .setPopup(new maplibregl.Popup().setHTML(`
+                    <h3>${lugar.nombre}</h3>
+                    <p><a href="${lugar.link}">Ver historia</a></p>
+                `))
+                .addTo(map);
+        });
+
+        map.on('load', () => {
+            map.flyTo({ center: [-75.0152, -13.53195], zoom: 6, speed: 0.5 });
+        });
+    </script>
+}

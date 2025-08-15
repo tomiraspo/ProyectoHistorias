@@ -1,0 +1,118 @@
+﻿@page
+@model WebAplicacion.Pages.ProyectoModel
+@{
+    ViewData["Title"] = "Estructura y Resumen del Proyecto";
+}
+
+<h1>Estructura y Resumen del Proyecto</h1>
+
+<h2>Layout (_Layout.cshtml)</h2>
+<p>
+    Plantilla base que contiene la estructura HTML común a todas las páginas: 
+    encabezado, navegación, pie de página, y los scripts y estilos compartidos. 
+    Incluye un modal para ampliar imágenes al hacer clic.
+</p>
+
+<h2>Librerías y Recursos Utilizados</h2>
+<ul>
+    <li><strong>Bootstrap 5</strong>: sistema de grillas, botones, estilos responsivos y clases utilitarias.</li>
+    <li><strong>jQuery</strong>: utilizado para interactividad y soporte de algunos scripts personalizados.</li>
+    <li><strong>MapLibre GL JS</strong>: librería moderna para mapas interactivos vectoriales, 
+        utilizada en <code>Mapa.cshtml</code> (Portugal, España y Perú).</li>
+    <li><strong>JSON (System.Text.Json)</strong>: utilizado en Razor Pages para cargar datos dinámicos desde archivos .json.</li>
+</ul>
+
+<h2>Estructura del Proyecto</h2>
+<pre>
+/Pages
+    /Viaje
+        /Italia
+            Index.cshtml
+            Mapa.cshtml
+        /Portugal
+            Index.cshtml
+            Historia.cshtml
+            Proyecto.cshtml
+            Mapa.cshtml
+        /España
+            Index.cshtml
+            Mapa.cshtml
+        /Peru
+            Index.cshtml
+            Mapa.cshtml
+    Proyecto.cshtml (documentación general)
+/Models
+    Ciudad.cs (modelo de datos para ciudades)
+/wwwroot
+    /images
+        /italia
+        /portugal
+        /españa
+        /peru
+    /data
+        portugal.json
+    /css
+        site.css (estilos personalizados)
+    /js
+        scripts.js (scripts personalizados)
+    /lib
+        /bootstrap
+        /jquery
+        /maplibre
+</pre>
+
+<h2>Secciones por País</h2>
+
+<h3>🇮🇹 Italia</h3>
+<ul>
+    <li><strong>Index.cshtml:</strong> Introducción general al viaje por Italia.</li>
+    <li><strong>Mapa.cshtml:</strong> Mapa interactivo con MapLibre GL JS y marcadores de ciudades.</li>
+    <li><strong>Galería de Fotos:</strong> Imágenes con soporte de ampliación mediante modal.</li>
+</ul>
+
+<h3>🇵🇹 Portugal</h3>
+<ul>
+    <li><strong>Index.cshtml:</strong> Página de entrada al viaje por Portugal.</li>
+    <li><strong>Historia.cshtml:</strong> Carga dinámica de ciudades desde <code>portugal.json</code> usando el modelo <code>Ciudad</code>.</li>
+    <li><strong>Mapa.cshtml:</strong> Mapa interactivo con MapLibre GL JS, marcadores personalizados y popups.</li>
+    <li><strong>Proyecto.cshtml:</strong> Documentación técnica y resumen del desarrollo.</li>
+</ul>
+
+<h3>🇪🇸 España</h3>
+<ul>
+    <li><strong>Index.cshtml:</strong> Introducción al viaje por España.</li>
+    <li><strong>Mapa.cshtml:</strong> Mapa con MapLibre GL JS mostrando únicamente Valencia.</li>
+</ul>
+
+<h3>🇵🇪 Perú</h3>
+<ul>
+    <li><strong>Index.cshtml:</strong> Introducción al viaje por Perú.</li>
+    <li><strong>Mapa.cshtml:</strong> Mapa con MapLibre GL JS incluyendo Lima, Cusco y otros puntos visitados.</li>
+</ul>
+
+<h2>Funcionalidades Técnicas</h2>
+<ul>
+    <li>Lectura y deserialización de archivos JSON con <code>System.Text.Json</code>.</li>
+    <li>Galerías de imágenes organizadas por país dentro de <code>/images</code>.</li>
+    <li>Estilos responsivos con Bootstrap 5 para un diseño adaptable.</li>
+    <li>Mapas interactivos vectoriales con <strong>MapLibre GL JS</strong>, 
+        incluyendo marcadores, popups y efectos de animación <code>flyTo</code>.</li>
+</ul>
+
+<h2>Interactividad</h2>
+<p>
+    Las secciones de Historia utilizan Razor y C# para mostrar información dinámica 
+    desde archivos JSON. Las imágenes son ampliables con un clic gracias a un 
+    script en el Layout. Los mapas muestran ubicaciones visitadas con popups 
+    enlazando a las historias correspondientes.
+</p>
+
+<h2>Notas y Futuras Mejoras</h2>
+<ul>
+    <li>Agregar navegación por teclado al modal de imágenes.</li>
+    <li>Separar y optimizar archivos CSS y JS para mayor reutilización.</li>
+    <li>Integrar rutas y capas personalizadas en los mapas de MapLibre GL JS.</li>
+    <li>Sumar más países y aplicar carga dinámica de datos desde JSON o base de datos.</li>
+    <li>Optimizar accesibilidad con etiquetas <code>alt</code>, navegación con teclado y soporte ARIA.</li>
+    <li>Integrar Entity Framework + SQL Server en futuras versiones.</li>
+</ul>

@@ -1,0 +1,24 @@
+﻿@page
+@model WebAplicacion.Pages.Viaje.Portugal.HistoriaModel
+@{
+    ViewData["Title"] = "Historia de Portugal";
+}
+
+<h1 class="text-center mb-4">@ViewData["Title"]</h1>
+
+<div class="container">
+    <div class="row">
+        @foreach (var ciudad in Model.Ciudades)
+        {
+            <div class="col-md-4 mb-4" data-aos="fade-up">
+                <div class="card h-100 shadow-sm">
+                    <img src="@ciudad.Foto" class="card-img-top" alt="@ciudad.Nombre">
+                    <div class="card-body">
+                        <h5 class="card-title">@ciudad.Nombre</h5>
+                        <p class="card-text">@ciudad.Descripcion</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

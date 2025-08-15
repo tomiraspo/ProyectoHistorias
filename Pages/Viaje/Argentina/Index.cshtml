@@ -1,0 +1,43 @@
+﻿@page
+@model HistoriasPais.Pages.Argentina.IndexModel
+@{
+    ViewData["Title"] = "Viaje a Argentina";
+}
+
+<h1>Viaje a Argentina</h1>
+<p>En 2025 recorrí varias provincias del país. ¡Cada ciudad tiene su encanto!</p>
+
+<h2>Explora las secciones:</h2>
+
+<div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
+    <a asp-page="Mapa" class="btn btn-primary">🗺 Ver Mapa del Recorrido</a>
+    <a asp-page="Historia" class="btn btn-secondary">📷 Historia y Fotos</a>
+    <a asp-page="Gastronomia" class="btn btn-success">🥩 Gastronomía Local</a>
+</div>
+
+<hr />
+
+<h2>Ciudades de Argentina (desde SQL Server)</h2>
+
+@if (Model.Ciudades.Count == 0)
+{
+    <p>No hay ciudades registradas para Argentina.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Ciudad</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ciudad in Model.Ciudades)
+            {
+                <tr>
+                    <td>@ciudad</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -1,0 +1,102 @@
+﻿@page
+@model HistoriasPais.Pages.Viaje.Espana.IndexModel
+
+@{
+    ViewData["Title"] = "España";
+}
+
+<div class="espana-page">
+    <h1>Bienvenido a España</h1>
+    <p>Esta es la página principal de la sección de España.</p>
+
+    <p>
+        <a asp-page="/Viaje/Espana/Mapa" class="btn btn-primary">Ver mapa interactivo</a>
+    </p>
+
+    <div class="lighthouse-container">
+        <!-- Faro SVG con luz -->
+        <svg class="lighthouse-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <rect x="90" y="100" width="20" height="80" fill="#ccc" stroke="#999" />
+            <polygon points="90,100 110,100 100,70" fill="#ccc" stroke="#999" />
+            <polygon class="light-beam" points="100,70 200,0 200,140" fill="rgba(255,255,150,0.3)" />
+        </svg>
+
+        <div class="ocean">
+            <div class="wave"></div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom, #00111a 0%, #004466 100%);
+            overflow-x: hidden;
+            color: white;
+        }
+
+        .espana-page {
+            position: relative;
+            min-height: 100vh;
+            background: linear-gradient(to top, #001f3f, #0074D9);
+            overflow: hidden;
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 20px;
+        }
+
+        .btn-primary {
+            background-color: #0074D9;
+            color: white;
+            padding: 10px 18px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+            .btn-primary:hover {
+                background-color: #005fa3;
+                color: white;
+            }
+
+        .lighthouse-container {
+            position: relative;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            margin-top: 40px;
+        }
+
+        .lighthouse-svg {
+            width: 200px;
+            height: auto;
+            z-index: 2;
+        }
+
+        .light-beam {
+            transform-origin: 100px 70px;
+        }
+
+        .ocean {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 150px;
+            overflow: hidden;
+            background: transparent;
+            z-index: 1;
+        }
+
+        .wave {
+            position: absolute;
+            width: 200%;
+            height: 100%;
+            background: url('https://i.imgur.com/Hh6P9qX.png') repeat-x;
+            opacity: 0.4;
+            border-radius: 50%;
+        }
+    </style>
+}

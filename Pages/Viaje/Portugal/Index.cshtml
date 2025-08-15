@@ -1,0 +1,16 @@
+﻿@page
+@model WebAplicacion.Pages.Viaje.Portugal.IndexModel
+@{
+    ViewData["Title"] = "Viaje a Portugal";
+}
+
+<h1>Viaje a Portugal</h1>
+<p>En 2025 recorrí varias ciudades del país. ¡Una experiencia inolvidable!</p>
+
+<h2>Explora las secciones:</h2>
+
+<div style="display: flex; flex-direction: column; gap: 10px;">
+    <a asp-page="Mapa" class="btn btn-primary">🗺 Ver Mapa del Recorrido</a>
+    <a asp-page="Historia" class="btn btn-secondary">📷 Historia y Fotos</a>
+    <a asp-page="Proyecto" class="btn btn-success">🏫 Proyecto Pasantía</a>
+</div>

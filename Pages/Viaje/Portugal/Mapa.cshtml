@@ -1,0 +1,41 @@
+﻿@page
+@model WebAplicacion.Pages.Viaje.Portugal.MapaModel
+@{
+    ViewData["Title"] = "Mapa de Portugal";
+}
+
+<h1>Mapa de Portugal</h1>
+
+<div id="map" style="height:80vh;width:100%;border-radius:12px;"></div>
+
+@section Scripts {
+    <script src="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js"></script>
+    <script>
+        const map = new maplibregl.Map({
+            container: 'map',
+            style: 'https://tiles.stadiamaps.com/styles/alidade_smooth.json',
+            center: [-8.2245, 39.3999], // Centro de Portugal
+            zoom: 6
+        });
+
+        const lugares = [
+            { coords: [-9.139, 38.7169], nombre: 'Lisboa', link: '/Viaje/Portugal/Index' },
+            { coords: [-8.6291, 41.1579], nombre: 'Oporto', link: '/Viaje/Portugal/Index' }
+        ];
+
+        lugares.forEach(lugar => {
+            new maplibregl.Marker()
+                .setLngLat(lugar.coords)
+                .setPopup(new maplibregl.Popup().setHTML(`
+                    <h3>${lugar.nombre}</h3>
+                    <p><a href="${lugar.link}">Ver historia</a></p>
+                `))
+                .addTo(map);
+        });
+
+        // Animación inicial
+        map.on('load', () => {
+            map.flyTo({ center: [-8.2245, 39.3999], zoom: 6, speed: 0.5 });
+        });
+    </script>
+}
