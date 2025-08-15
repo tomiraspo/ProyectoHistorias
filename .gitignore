@@ -1,0 +1,7 @@
+# Archivos de Visual Studio y .NET
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.cache
